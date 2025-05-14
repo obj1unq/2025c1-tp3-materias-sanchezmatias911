@@ -1,0 +1,43 @@
+import inscripciones.*
+
+// MATERIAS
+
+    const objetos1 = new Materia()
+    const objetos2= new Materia ( requisitos = #{objetos1,matematica1} )
+    const objetos3 = new Materia( requisitos = #{objetos2,bbdd})
+    const matematica1 = new Materia()
+    const bbdd = new Materia ( requisitos=#{})
+    const programacionConcurrente = new Materia( requisitos=#{objetos1,bbdd})
+
+// ALUMNOS
+
+    const matias= new Estudiante()
+
+// REGISTROS
+
+    const registro = new Registro(estudiante = matias ,materia = objetos1,nota = 10)
+
+
+/*#################################################################################################
+                                                 TEST
+###################################################################################################*/
+describe "Registros"{
+     test "los registros dan un estudiante,la materia y su nota y ademas no se puede"{
+        assert.equals(matias, registro.estudiante())
+        assert.equals(objetos1, registro.materia())
+        assert.equals(10,registro.nota())
+    }
+}
+describe "requisitos"{
+    test "los requisitos de Objetos 2 son Objetos 1 y Matemática 1"{
+        assert.equals(#{objetos1,matematica1},objetos2.requisitos())
+    }
+}
+
+describe "nombre"{
+
+    test "nombre de matias"{
+        assert.equals("an Estudiante",matias.nombre())
+    }
+}
+
