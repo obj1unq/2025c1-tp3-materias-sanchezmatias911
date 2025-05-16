@@ -15,6 +15,11 @@
     a la Materia en que lista quedo, si la inscripcion no lanzo una excepcion. Si el alumno nunca se inscribio
     y pregunta los resultados dira que nunca intento inscribirse
 
+    MATERIAS EN LAS QUE PUEDE INSCRIBIRSE: El enunciado dice "Sólo vale si el estudiante está cursando esa carrera".
+    Lo que entendi al principio es que primero valida si estoy cursando una carrera(excepcion) y luego devuelve una 
+    lista con las materias que me puedo inscribir. Pero como entiendo que las validaciones solo se hacen en metodos de 
+    orden, quedo en una funcion PARCIAL
+
 */
 
 class Carrera{
@@ -25,7 +30,7 @@ class Carrera{
 }
 class Materia{
 
-    const nombreMateria
+    const nombreMateria //STRING
 
     const alumnosInscriptos = #{}
 
@@ -33,10 +38,12 @@ class Materia{
 
     const requisitos = #{}
 
-    const cupoMaximo = 30
+    const cupoMaximo //INT
 
 
     method requisitos()= requisitos
+
+    method nombreMateria() = nombreMateria
     
     //####### INSCRIBIR ALUMNO
     method inscribirAlumno(alumno){
@@ -81,6 +88,8 @@ class Materia{
     method cantidadInscriptos() = alumnosInscriptos.size()
 
     method cupoMaximo() = cupoMaximo
+
+    
 
     //######### DAR DE BAJA ##############
 
@@ -217,11 +226,33 @@ class Estudiante{
 
     //######### MATERIAS EN LAS QUE ESTOY INSCRIPTO O EN LISTA DE ESPERA ##############
 
-    method materiasInscripto() {}
+    method materiasInscripto() {
+    
+        return self.materiasDeTodasLasCarreras().filter({m => self.estaInscripto(m)})
+    }
 
-    method materiasEnListaDeEspera() {}
+    method materiasEnListaDeEspera() {
 
-   self.materiasDeTodasLasCarreras()
+        return self.materiasDeTodasLasCarreras().filter({m => m.estaEnListaDeEspera(self)})
+    }
+
+    // ############ MATERIAS A LAS QUE ME PUEDO INSCRIBIR """"""
+    
+    method materiasEnQuePuedeInscribirse(carrera){
+        return carrera.materiasCarrera().filter({m => self.puedeInscribirse(m) })
+    }
+
+    /* Por si debo refactorizar materiasEnQuePuedeInscribirse con una excepcion
+    method validarCarrera(carrera){
+        if (not self.estoyCursando(carrera)){
+            self.error("No estoy cursando esta carrera")
+        }
+    }
+
+    method estoyCursando(carrera){
+        return carrerasInscripto.contains(carrera)
+    }
+    */
 }
 
 
