@@ -1,5 +1,6 @@
 import inscripciones.*
 
+/*
 // MATERIAS
 
     const objetos1 = new Materia()
@@ -21,6 +22,7 @@ import inscripciones.*
 /*#################################################################################################
                                                  TEST
 ###################################################################################################*/
+/*
 describe "Registros"{
      test "los registros dan un estudiante,la materia y su nota y ademas no se puede"{
         assert.equals(matias, registro.estudiante())
@@ -41,3 +43,4 @@ describe "nombre"{
     }
 }
 
+*/

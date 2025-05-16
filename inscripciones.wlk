@@ -1,3 +1,13 @@
+
+/*
+    ##################################
+    REGISTRO DE UNA MATERIA APROBADA: 
+    ##################################
+    *el objeto Materia entiende el mensaje  'aprobarEstudiante(estudiante,materia,nota)' 
+    que instancia un objeto registro, valida el registro y lo agrega al Estudiante
+
+*/
+
 class Carrera{
 
   const materiasCarrera = #{}
@@ -6,14 +16,16 @@ class Carrera{
 }
 class Materia{
 
-    var cantInscriptos = 0
     const alumnosInscriptos = #{}
-
+    
     method inscribirAlumno(alumno){
+
         self.validarCupo()
         alumnosInscriptos.add(alumno)
-        cantInscriptos = cantInscriptos + 1
+        
     }
+
+    method cantidadInscriptos() = alumnosInscriptos.size()
 
     method validarCupo(){
         if(self.hayCupo()){
@@ -21,58 +33,82 @@ class Materia{
         }
     }
 
-    method hayCupo() = cantInscriptos<= self.cupoMaximo()
+    method hayCupo() = self.cantidadInscriptos() <= self.cupoMaximo()
 
     method cupoMaximo() = 30
-
-
-
-    const requisitos=#{}
-
+   
+    //####################### REGISTRO DE MATERIAS APROBADAS  ###############
     
-    method requisitos() = requisitos
-}
-class Registro{
-    const estudiante 
-    const materia
-    const nota
+    method aprobarEstudiante(estudiante,materia,nota){
+        self.validarRegistro(estudiante,materia)
+        estudiante.agregarMateriaAprobada(new Registro(est = estudiante, mat= materia, notaFinal = nota))
 
-    method estudiante() = estudiante
-    method materia() = materia
-    method nota() = nota   
+    }
 
-    //method registro () = [estudiante,materia,nota] 
+    method validarRegistro(estudiante,materia){
+        if(estudiante.tieneAprobada(materia)){
+            self.error("El alumno ya tiene  la materia aprobada")
+        }
+    }
+
+        
 }
+class Registro {
+    
+    const est
+    const mat
+    const notaFinal
+
+    method registro() = #{est,mat,notaFinal}
+
+    method materia() = mat 
+
+    method nota() = notaFinal
+ }
+
+
 class Estudiante{
 
+    const materiasAprobadas= #{} //registros 
+    const carrerasInscripto = #{}
+
+    //######### Punto 2 #########
+    method cantidadMateriasAprobadas(){}
+
+    method promedio(){
+        self.promedioNotas(self.notas())
+    } 
+
+    method notas() = self.listaMateriasAprobadas().map({e => e.nota()})
+
+    method listaMateriasAprobadas() {
+        // Convierto el set de materias aprobadas a una lista para no perder informacion 
+        // de las notas, que podrian estar repetidas
+        return materiasAprobadas.asList() 
+    }
+
+    method promedioNotas(listaNotas){
+       return  listaNotas.sum() / listaNotas.size()
+    }
    
-    const carreras = #{}
+   
+    method tieneAprobada(materia) =  self.materias().contains(materia)
     
-    const materiasAprobadas = #{} // registros
+    method materias() =  materiasAprobadas.map({r => r.materia()})
 
-    method materiasAprobadas() = materiasAprobadas.size()
-
-    var promedio = 0
-
+    method materiasDeTodasLasCarreras() =self.materiasDeCarreras().flatten()
     
-    method tieneAprobada(materia){
+    method materiasDeCarreras() =carrerasInscripto.map({c => c.materiasCarrera()})
+    
+    //########### REGISTRAR MATERIA APROBADA ############
+    method agregarMateriaAprobada(reg){
 
+        materiasAprobadas.add(reg.registro())
     }
 
-    method sePuedeInscribirEn(materia){}
-
-    method inscribir(materia){}
+    //################ INSCRIPCION ###############
+    method puedeInscribirse(materia){}
 }
 
-class  Lista{
-    const lista =#{} 
-    
-    method agregar(algo){
-        lista.add(algo)
-    }
 
-    method lista() = lista
 
-    
-    
-}
