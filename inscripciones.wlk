@@ -1,5 +1,6 @@
 
-/*
+/*  
+    NOTAS DE TP3 MATERIAS:
    
     REGISTRO DE UNA MATERIA APROBADA: 
    
@@ -8,6 +9,11 @@
 
     INSCRIPCION DE ESTUDIANTE :
         *la responsabilidad es de la Materia
+
+    RESULTADOS DE INSCRIPCION : lo que entendi es que la Materia sabe decir que Estudiantes 
+    tiene inscriptos y que Estudiantes estan en espera. Y el Estudiante puede preguntarle 
+    a la Materia en que lista quedo, si la inscripcion no lanzo una excepcion. Si el alumno nunca se inscribio
+    y pregunta los resultados dira que nunca intento inscribirse
 
 */
 
@@ -19,15 +25,16 @@ class Carrera{
 }
 class Materia{
 
+    const nombreMateria
+
     const alumnosInscriptos = #{}
 
     const listaDeEspera = []
 
     const requisitos = #{}
 
-    var cupoMaximo = 30
+    const cupoMaximo = 30
 
-    method alumnosInscriptos() = alumnosInscriptos
 
     method requisitos()= requisitos
     
@@ -90,6 +97,10 @@ class Materia{
         alumnoEnEspera.remove(alumnoEnEspera)
 
     }
+    // ############## RESULTADOS INSCRIPCION ###########
+    method alumnosInscriptos() = alumnosInscriptos
+
+    method alumnosEnEspera() = listaDeEspera
    
     //####################### REGISTRO DE MATERIAS APROBADAS  ###############
     
@@ -122,6 +133,8 @@ class Registro {
 
 
 class Estudiante{
+
+    
 
     const materiasAprobadas= #{} //registros 
     const carrerasInscripto = #{}
@@ -182,9 +195,33 @@ class Estudiante{
         return materia.requisitos().forEach({m => self.tieneAprobada(m)})
     }
 
+    //###### RESULTADOS INSCRIPCION ####
     
+    method resultadosInscripcion(materia){
+        if(materia.estaEnListaDeEspera(self)){
+            return self.mensajeListaEspera(materia)
+        }
 
-   
+        if(self.estaInscripto(materia)){
+        
+            return self.mensajeInscripto(materia)
+        }
+
+        return "Usted nunca realizo inscripcion"
+        
+    }
+
+    method mensajeInscripto(materia) = "Usted esta inscripto a la materia" + materia.nombreMateria()
+
+    method mensajeListaEspera(materia) = "Usted esta en la lista de espera de la materia: "+ materia.nombreMateria()
+
+    //######### MATERIAS EN LAS QUE ESTOY INSCRIPTO O EN LISTA DE ESPERA ##############
+
+    method materiasInscripto() {}
+
+    method materiasEnListaDeEspera() {}
+
+   self.materiasDeTodasLasCarreras()
 }
 
 
