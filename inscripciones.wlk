@@ -1,10 +1,13 @@
 
 /*
-    ##################################
+   
     REGISTRO DE UNA MATERIA APROBADA: 
-    ##################################
+   
     *el objeto Materia entiende el mensaje  'aprobarEstudiante(estudiante,materia,nota)' 
     que instancia un objeto registro, valida el registro y lo agrega al Estudiante
+
+    INSCRIPCION DE ESTUDIANTE :
+        *la responsabilidad es de la Materia
 
 */
 
@@ -17,25 +20,76 @@ class Carrera{
 class Materia{
 
     const alumnosInscriptos = #{}
+
+    const listaDeEspera = []
+
+    const requisitos = #{}
+
+    var cupoMaximo = 30
+
+    method alumnosInscriptos() = alumnosInscriptos
+
+    method requisitos()= requisitos
     
+    //####### INSCRIBIR ALUMNO
     method inscribirAlumno(alumno){
 
-        self.validarCupo()
-        alumnosInscriptos.add(alumno)
+        self.validarInscripcion(alumno)
+        self.inscribir(alumno)
         
     }
 
-    method cantidadInscriptos() = alumnosInscriptos.size()
-
-    method validarCupo(){
-        if(self.hayCupo()){
-            self.error("No puedo inscribir alumno")
+    method inscribir(alumno){
+        if (not self.hayCupo()){
+            self.añadirAListaDeEspera(alumno)
+        }
+        else {
+            self.añadirACursada(alumno)
         }
     }
 
+    method añadirAListaDeEspera(alumno){
+        if(not self.estaEnListaDeEspera(alumno)){ //evita repetidos en lista de espera
+            listaDeEspera.add(alumno)
+        }
+    }
+
+    method estaEnListaDeEspera(alumno) = listaDeEspera.contains(alumno)
+
+    method añadirACursada(alumno){
+        alumnosInscriptos.add(alumno)
+    }
+
+    method validarInscripcion(alumno){
+        if(not self.sePuedeInscribir(alumno)){
+            self.error("El alumno no se puede inscribir a esta materia")
+        }
+    }
+
+    method sePuedeInscribir(alumno) = alumno.sePuedeInscribir()
+
+
     method hayCupo() = self.cantidadInscriptos() <= self.cupoMaximo()
 
-    method cupoMaximo() = 30
+    method cantidadInscriptos() = alumnosInscriptos.size()
+
+    method cupoMaximo() = cupoMaximo
+
+    //######### DAR DE BAJA ##############
+
+    method darDeBaja(estudiante){
+        alumnosInscriptos.remove(estudiante)
+        self.inscribirAlumnoEnEspera()
+    }
+
+    method inscribirAlumnoEnEspera(){
+        const alumnoEnEspera = listaDeEspera.first()
+
+        alumnosInscriptos.add(alumnoEnEspera)
+
+        alumnoEnEspera.remove(alumnoEnEspera)
+
+    }
    
     //####################### REGISTRO DE MATERIAS APROBADAS  ###############
     
@@ -96,6 +150,7 @@ class Estudiante{
     
     method materias() =  materiasAprobadas.map({r => r.materia()})
 
+    // PUNTO 4
     method materiasDeTodasLasCarreras() =self.materiasDeCarreras().flatten()
     
     method materiasDeCarreras() =carrerasInscripto.map({c => c.materiasCarrera()})
@@ -107,7 +162,29 @@ class Estudiante{
     }
 
     //################ INSCRIPCION ###############
-    method puedeInscribirse(materia){}
+    method puedeInscribirse(materia){
+        return self.materiaEnCarrera(materia) and 
+             not self.tieneAprobada(materia) and
+             not self.estaInscripto(materia) and
+             self.cumpleRequisitos(materia)
+
+    }
+
+    method materiaEnCarrera(materia){
+        return self.materiasDeTodasLasCarreras().contains(materia)
+    }
+
+    method estaInscripto(materia){
+        return materia.alumnosInscriptos().contains(self)
+    }
+
+    method cumpleRequisitos(materia){
+        return materia.requisitos().forEach({m => self.tieneAprobada(m)})
+    }
+
+    
+
+   
 }
 
 
