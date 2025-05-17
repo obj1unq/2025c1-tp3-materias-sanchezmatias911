@@ -2,6 +2,7 @@ import inscripciones.*
 
 
 
+// MATERIAS Y CARRERAS
 
     const objetos1        = new Materia(nombreMateria="Programacion con Objetos 1", cupoMaximo = 6)
     const objetos2        = new Materia (nombreMateria= "Programacion Con objetos 2",cupoMaximo = 3, requisitos = #{objetos1,matematica1} )
@@ -13,6 +14,17 @@ import inscripciones.*
     const biologia2       = new Materia(nombreMateria="Bologia 2",cupoMaximo=4,requisitos=#{biologia1})
     const ep              = new Materia(nombreMateria="Elementos de Programacion",cupoMaximo=4)
     const quimica         = new Materia(nombreMateria="Quimica", cupoMaximo=4)
+    const trabajoFinal    = new Materia(nombreMateria = "Trabajo Final",cupoMaximo=4)
+    const anatomiaGeneral = new Materia(nombreMateria = "Anatomia Genral",cupoMaximo=5)
+    const latin           = new Materia(nombreMateria = "Latin", cupoMaximo=6)
+    const derechoRomano   = new Materia(nombreMateria="Derecho Romano", cupoMaximo=10)
+    const hda             = new Materia(nombreMateria="Historia del Derecho Argentino",cupoMaximo=5)
+    const derechoPenal1   = new Materia(nombreMateria="Derecho Penal 1",cupoMaximo=3)
+    const derechoPenal2   = new Materia(nombreMateria="Derecho Penal 2",cupoMaximo=3)
+
+    const programacion = new Carrera(materiasCarrera= #{ep,matematica1,objetos1,objetos2,objetos3,trabajoFinal,bbdd,progConcurrente})
+    const medicina = new Carrera(materiasCarrera=#{quimica,biologia1,biologia2,anatomiaGeneral})
+    const derecho = new Carrera(materiasCarrera=#{latin,derechoRomano,hda,derechoPenal1,derechoPenal2})
 
 // ALUMNOS
 
@@ -31,6 +43,15 @@ describe "Inscripciones"{
    
 
      method initialize(){ 
+        //Inscripcion alumnos
+        roque.inscribirACarrera(programacion)
+        roque.inscribirACarrera(medicina)
+
+        luisa.inscribirACarrera(programacion)
+        romina.inscribirACarrera(programacion)
+        alicia.inscribirACarrera(programacion)
+        ana.inscribirACarrera(programacion)
+
         // Roque tiene aprobada estas materias
         ep.inscribirAlumno(roque)
         matematica1.inscribir(roque)
@@ -75,25 +96,50 @@ describe "Inscripciones"{
 
      }
 
-    test "los registros dan un estudiante,la materia y su nota y ademas no se puede"{
-       assert.that(true)
+     test "Roque puede inscribirse en Objetos 2, pero no en Objetos 3 (porque le falta Objetos 2) ni en Objetos 1 (porque ya la tiene aprobada)."{
+        assert.that(roque.sePuedeInscribir(objetos2))
+        assert.notThat(roque.sePuedeInscribir(objetos3))
+        assert.notThat(roque.sePuedeInscribir(objetos1))
 
+
+     }
+
+    test "Roque puede inscribirse: en Programación, en Objetos 2 y Programación Concurrente; en Medicina, en Biología 2."{
+
+       assert.that(roque.sePuedeInscribir(objetos2))
+       assert.that(roque.sePuedeInscribir(progConcurrente))
+
+       assert.that(roque.sePuedeInscribir(biologia2))
+
+
+    }
+
+    test "Si se inscriben, en este orden, Luisa, Romina, Alicia y Roque en Objetos 2, entonces las tres primeras quedan confirmadas, y Roque queda en lista de espera."{
+        objetos2.inscribir(luisa)
+        objetos2.inscribir(romina)
+
+        objetos2.inscribir(alicia)
+        objetos2.inscribir(roque)
+
+        assert.that(luisa.estaInscripto(objetos2))
+        assert.that(romina.estaInscripto(objetos2))
+        assert.that(alicia.estaInscripto(objetos2))
+       
+        assert.that(objetos2.estaEnListaDeEspera(roque))
+        
+    }
+
+    test "Si después se da de baja Romina en Objetos 2, entonces Roque pasa a tener la inscripción confirmada en esa materia."{
+        objetos2.inscribir(luisa)
+        objetos2.inscribir(romina)
+        objetos2.inscribir(alicia)
+        objetos2.inscribir(roque)
+
+        objetos2.darDeBaja(romina)
+
+        assert.that(roque.estaInscripto(objetos2))
     }
 }
      
-/*
-describe "requisitos"{
-    test "los requisitos de Objetos 2 son Objetos 1 y Matemática 1"{
-        assert.equals(#{objetos1,matematica1},objetos2.requisitos())
-    }
-}
 
-describe "nombre"{
-
-    test "nombre de matias"{
-        assert.equals("an Estudiante",matias.nombre())
-    }
-}
-
-*/
 

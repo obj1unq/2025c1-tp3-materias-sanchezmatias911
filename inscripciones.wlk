@@ -16,15 +16,15 @@
     y pregunta los resultados dira que nunca intento inscribirse
 
     MATERIAS EN LAS QUE PUEDE INSCRIBIRSE: El enunciado dice "Sólo vale si el estudiante está cursando esa carrera".
-    Lo que entendi al principio es que primero valida si estoy cursando una carrera(excepcion) y luego devuelve una 
-    lista con las materias que me puedo inscribir. Pero como entiendo que las validaciones solo se hacen en metodos de 
-    orden, quedo en una funcion PARCIAL
+    Lo que entendi al principio es que primero valida si estoy cursando una carrera(lanza excepcion) y luego devuelve una 
+    lista con las materias que me puedo inscribir. 
+    
 
 */
 
 class Carrera{
 
-  const materiasCarrera = #{}
+  const materiasCarrera 
 
     method materiasCarrera() = materiasCarrera
 }
@@ -32,7 +32,7 @@ class Materia{
 
     const nombreMateria //STRING
 
-    const alumnosInscriptos = #{}
+    const alumnosInscriptos = []
 
     const listaDeEspera = []
 
@@ -80,10 +80,10 @@ class Materia{
         }
     }
 
-    method sePuedeInscribir(alumno) = alumno.sePuedeInscribir()
+    method sePuedeInscribir(estudiante) = estudiante.sePuedeInscribir(self)
 
 
-    method hayCupo() = self.cantidadInscriptos() <= self.cupoMaximo()
+    method hayCupo() = self.cantidadInscriptos() < self.cupoMaximo()
 
     method cantidadInscriptos() = alumnosInscriptos.size()
 
@@ -94,7 +94,7 @@ class Materia{
     //######### DAR DE BAJA ##############
 
     method darDeBaja(estudiante){
-        alumnosInscriptos.remove(estudiante)
+        self.quitarEstudianteInscripto(estudiante)
         self.inscribirAlumnoEnEspera()
     }
 
@@ -103,7 +103,7 @@ class Materia{
 
         alumnosInscriptos.add(alumnoEnEspera)
 
-        alumnoEnEspera.remove(alumnoEnEspera)
+        listaDeEspera.remove(alumnoEnEspera)
 
     }
     // ############## RESULTADOS INSCRIPCION ###########
@@ -115,15 +115,30 @@ class Materia{
     
     method aprobarEstudiante(estudiante,nota){
         self.validarRegistro(estudiante,self)
-        estudiante.agregarMateriaAprobada(new Registro(est = estudiante, mat= self, notaFinal = nota))
-        alumnosInscriptos.remove(estudiante) // el estudiante ya no esta inscripto porque aprobo
+        const registro = new Registro(est = estudiante, mat= self, notaFinal = nota)
+        self.actualizarAlumnoYMateria(estudiante,registro) // el estudiante ya no esta inscripto porque aprobo
 
+    }
+
+    method actualizarAlumnoYMateria(estudiante,registro){
+        self.actualizarAlumnoAprobado(estudiante,registro)
+        self.quitarEstudianteInscripto(estudiante)
     }
 
     method validarRegistro(estudiante,materia){
         if(estudiante.tieneAprobada(self)){
-            self.error("El alumno ya tiene  la materia aprobada")
+            self.error("El Estudiante ya tiene  la materia aprobada")
         }
+    }
+
+    method actualizarAlumnoAprobado(estudiante,reg){
+        
+        estudiante.materiasAprobadas().add(reg)
+       
+    }
+
+    method quitarEstudianteInscripto(estudiante){
+        alumnosInscriptos.remove(estudiante)
     }
 
         
@@ -179,14 +194,10 @@ class Estudiante{
     method materiasDeCarreras() =carrerasInscripto.map({c => c.materiasCarrera()})
     
     //########### REGISTRAR MATERIA APROBADA ############
-    method agregarMateriaAprobada(reg){
-        const materiaAprobada = reg.materia()
-        materiasAprobadas.add(reg.registro())
-       
-    }
+    method materiasAprobadas() = materiasAprobadas
 
     //################ INSCRIPCION ###############
-    method puedeInscribirse(materia){
+    method sePuedeInscribir(materia){
         return self.materiaEnCarrera(materia) and 
              not self.tieneAprobada(materia) and
              not self.estaInscripto(materia) and
@@ -203,7 +214,7 @@ class Estudiante{
     }
 
     method cumpleRequisitos(materia){
-        return materia.requisitos().forEach({m => self.tieneAprobada(m)})
+        return materia.requisitos().all({m => self.tieneAprobada(m)})
     }
 
     //###### RESULTADOS INSCRIPCION ####
@@ -242,7 +253,7 @@ class Estudiante{
     
     method materiasEnQuePuedeInscribirse(carrera){
         self.validarCarrera(carrera)
-        return carrera.materiasCarrera().filter({m => self.puedeInscribirse(m) })
+        return carrera.materiasCarrera().filter({m => self.sePuedeInscribir(m) })
     }
 
    
