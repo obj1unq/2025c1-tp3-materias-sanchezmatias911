@@ -1,22 +1,24 @@
 import inscripciones.*
 
-/*
-// MATERIAS
 
-    const objetos1 = new Materia()
-    const objetos2= new Materia ( requisitos = #{objetos1,matematica1} )
-    const objetos3 = new Materia( requisitos = #{objetos2,bbdd})
-    const matematica1 = new Materia()
-    const bbdd = new Materia ( requisitos=#{})
-    const programacionConcurrente = new Materia( requisitos=#{objetos1,bbdd})
+
+
+    const objetos1        = new Materia(nombreMateria="Programacion con Objetos 1", cupoMaximo = 6)
+    const objetos2        = new Materia (nombreMateria= "Programacion Con objetos 2",cupoMaximo = 3, requisitos = #{objetos1,matematica1} )
+    const objetos3        = new Materia( nombreMateria="Programacion con Objetos 3",cupoMaximo = 3, requisitos = #{objetos2,bbdd})
+    const matematica1     = new Materia(nombreMateria= "Matematica 1",cupoMaximo= 3)
+    const bbdd            = new Materia (nombreMateria="Bases de Datos",cupoMaximo= 10, requisitos=#{})
+    const progConcurrente = new Materia(nombreMateria="Programacion Concurrente",cupoMaximo=4, requisitos=#{objetos1,bbdd})
+    const biologia1 = new Materia(nombreMateria = "Biologia 1",cupoMaximo=3)
+    const biologia2 = new Materia(nombreMateria="Bologia 2",cupoMaximo=4,requisitos=#{biologia1})
 
 // ALUMNOS
 
     const matias= new Estudiante()
 
-// REGISTROS
+// REGISTROS DE MATERIAS APROBADAS
 
-    const registro = new Registro(estudiante = matias ,materia = objetos1,nota = 10)
+    
 
 
 /*#################################################################################################
