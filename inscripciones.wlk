@@ -239,10 +239,11 @@ class Estudiante{
     // ############ MATERIAS A LAS QUE ME PUEDO INSCRIBIR """"""
     
     method materiasEnQuePuedeInscribirse(carrera){
+        self.validarCarrera(carrera)
         return carrera.materiasCarrera().filter({m => self.puedeInscribirse(m) })
     }
 
-    /* Por si debo refactorizar materiasEnQuePuedeInscribirse con una excepcion
+   
     method validarCarrera(carrera){
         if (not self.estoyCursando(carrera)){
             self.error("No estoy cursando esta carrera")
@@ -252,7 +253,7 @@ class Estudiante{
     method estoyCursando(carrera){
         return carrerasInscripto.contains(carrera)
     }
-    */
+    
 }
 
 
