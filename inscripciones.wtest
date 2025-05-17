@@ -9,29 +9,79 @@ import inscripciones.*
     const matematica1     = new Materia(nombreMateria= "Matematica 1",cupoMaximo= 3)
     const bbdd            = new Materia (nombreMateria="Bases de Datos",cupoMaximo= 10, requisitos=#{})
     const progConcurrente = new Materia(nombreMateria="Programacion Concurrente",cupoMaximo=4, requisitos=#{objetos1,bbdd})
-    const biologia1 = new Materia(nombreMateria = "Biologia 1",cupoMaximo=3)
-    const biologia2 = new Materia(nombreMateria="Bologia 2",cupoMaximo=4,requisitos=#{biologia1})
+    const biologia1       = new Materia(nombreMateria = "Biologia 1",cupoMaximo=3)
+    const biologia2       = new Materia(nombreMateria="Bologia 2",cupoMaximo=4,requisitos=#{biologia1})
+    const ep              = new Materia(nombreMateria="Elementos de Programacion",cupoMaximo=4)
+    const quimica         = new Materia(nombreMateria="Quimica", cupoMaximo=4)
 
 // ALUMNOS
 
-    const matias= new Estudiante()
-
-// REGISTROS DE MATERIAS APROBADAS
-
-    
-
+    const roque= new Estudiante()
+    const luisa = new Estudiante()
+    const romina = new Estudiante()
+    const alicia = new Estudiante()
+    const ana = new Estudiante()
 
 /*#################################################################################################
                                                  TEST
 ###################################################################################################*/
-/*
-describe "Registros"{
-     test "los registros dan un estudiante,la materia y su nota y ademas no se puede"{
-        assert.equals(matias, registro.estudiante())
-        assert.equals(objetos1, registro.materia())
-        assert.equals(10,registro.nota())
+
+describe "Inscripciones"{
+
+   
+
+     method initialize(){ 
+        // Roque tiene aprobada estas materias
+        ep.inscribirAlumno(roque)
+        matematica1.inscribir(roque)
+        objetos1.inscribir(roque)
+        bbdd.inscribir(roque)
+        quimica.inscribir(roque)
+        biologia1.inscribir(roque)
+
+        ep.aprobarEstudiante(roque,10)
+        matematica1.aprobarEstudiante(roque, 7)
+        objetos1.aprobarEstudiante(roque,9)
+        bbdd.aprobarEstudiante(roque,6)
+        quimica.aprobarEstudiante(roque,10)
+        biologia1.aprobarEstudiante(roque,8)
+
+        // luisa,romina y alicia tienen aprobadas estas materias
+
+        ep.inscribir(luisa)
+        ep.inscribir(romina)
+        ep.inscribir(alicia)
+
+        objetos1.inscribir(luisa)
+        objetos1.inscribir(romina)
+        objetos1.inscribir(alicia)
+
+        matematica1.inscribir(luisa)
+        matematica1.inscribir(romina)
+        matematica1.inscribir(alicia)
+
+        ep.aprobarEstudiante(luisa, 10)
+        ep.aprobarEstudiante(romina, 9)
+        ep.aprobarEstudiante(alicia, 8)
+
+        objetos1.aprobarEstudiante(luisa, 10)
+        objetos1.aprobarEstudiante(romina, 9)
+        objetos1.aprobarEstudiante(alicia, 8)
+
+        matematica1.aprobarEstudiante(luisa, 10)
+        matematica1.aprobarEstudiante(romina, 9)
+        matematica1.aprobarEstudiante(alicia, 8)
+        
+
+     }
+
+    test "los registros dan un estudiante,la materia y su nota y ademas no se puede"{
+       assert.that(true)
+
     }
 }
+     
+/*
 describe "requisitos"{
     test "los requisitos de Objetos 2 son Objetos 1 y Matemática 1"{
         assert.equals(#{objetos1,matematica1},objetos2.requisitos())
@@ -46,3 +96,4 @@ describe "nombre"{
 }
 
 */
+

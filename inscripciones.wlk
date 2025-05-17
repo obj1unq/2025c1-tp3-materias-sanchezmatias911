@@ -113,14 +113,15 @@ class Materia{
    
     //####################### REGISTRO DE MATERIAS APROBADAS  ###############
     
-    method aprobarEstudiante(estudiante,materia,nota){
-        self.validarRegistro(estudiante,materia)
-        estudiante.agregarMateriaAprobada(new Registro(est = estudiante, mat= materia, notaFinal = nota))
+    method aprobarEstudiante(estudiante,nota){
+        self.validarRegistro(estudiante,self)
+        estudiante.agregarMateriaAprobada(new Registro(est = estudiante, mat= self, notaFinal = nota))
+        alumnosInscriptos.remove(estudiante) // el estudiante ya no esta inscripto porque aprobo
 
     }
 
     method validarRegistro(estudiante,materia){
-        if(estudiante.tieneAprobada(materia)){
+        if(estudiante.tieneAprobada(self)){
             self.error("El alumno ya tiene  la materia aprobada")
         }
     }
@@ -179,8 +180,9 @@ class Estudiante{
     
     //########### REGISTRAR MATERIA APROBADA ############
     method agregarMateriaAprobada(reg){
-
+        const materiaAprobada = reg.materia()
         materiasAprobadas.add(reg.registro())
+       
     }
 
     //################ INSCRIPCION ###############
@@ -252,6 +254,11 @@ class Estudiante{
 
     method estoyCursando(carrera){
         return carrerasInscripto.contains(carrera)
+    }
+
+    //############ INSCRIPCION A CARRERAS ########### 
+    method inscribirACarrera(carrera){
+        carrerasInscripto.add(carrera)
     }
     
 }
