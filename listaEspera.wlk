@@ -6,10 +6,16 @@
 class Manejo{
     const materiaActual
 
-    method alumnoAAñadir(){}
+    method alumnoAAniadir()
 
     method añadirAlumno(){
+        materiaActual.añadirACursada(self.alumnoAAniadir())
 
+        self.quitarAlumnoEnListaDeEspera(self.alumnoAAniadir())
+    }
+
+    method quitarAlumnoEnListaDeEspera(estudiante){
+        self.actualizarListaEspera(self.alumnoAAniadir())
     }
 
     method actualizarListaEspera(estudiante){
@@ -35,14 +41,10 @@ class GradoAvance inherits Manejo{
 }
 class OrdenLlegada inherits Manejo{
 
+     override method alumnoAAniadir() = materiaActual.listaDeEspera().first()
+   //  const alumnoAniadir = materiaActual.listaDeEspera().first()
+
      
-     const alumnoAniadir = materiaActual.listaDeEspera().first()
 
-    override method añadirAlumno(){
-        mateiaActual.añadirACursada(alumnoAniadir)
-
-        materiaActual.
-
-    }        
-    
+   
 }
