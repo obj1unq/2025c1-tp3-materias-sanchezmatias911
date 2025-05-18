@@ -1,5 +1,6 @@
 import requisitos.*
 import estudianteClass.*
+import listaEspera.*
 /*
 
     Requisitos de materia: 
@@ -19,7 +20,7 @@ class Carrera{
 }
 class Materia{
     
-    const requisito //
+    const requisito // ESTADO: Alguna Clase de Requisito
 
     const nombreMateria //STRING
 
@@ -27,7 +28,8 @@ class Materia{
 
     const listaDeEspera = []
 
-    
+    const manejoListaEspera // ESTADO: Alguna Clase de manejo de lista de espera
+
     const anho
 
     const cupoMaximo //INT
@@ -70,7 +72,9 @@ class Materia{
 
     method añadirAListaDeEspera(alumno){
         if(not self.estaEnListaDeEspera(alumno)){ //evita repetidos en lista de espera
+            //listaDeEspera.add(alumno)
             listaDeEspera.add(alumno)
+
         }
     }
 
@@ -101,17 +105,19 @@ class Materia{
 
     method darDeBaja(estudiante){
         self.quitarEstudianteInscripto(estudiante)
-        self.inscribirAlumnoEnEspera()
+       // self.inscribirAlumnoEnEspera()
+       manejoListaEspera.añadirAlumno()
+       manejoListaEspera.actualizarListaEspera()
     }
 
-    method inscribirAlumnoEnEspera(){
+    /*method inscribirAlumnoEnEspera(){
         const alumnoEnEspera = listaDeEspera.first()
 
         alumnosInscriptos.add(alumnoEnEspera)
 
         listaDeEspera.remove(alumnoEnEspera)
 
-    }
+    }*/
     // ############## RESULTADOS INSCRIPCION ###########
     method alumnosInscriptos() = alumnosInscriptos
 
