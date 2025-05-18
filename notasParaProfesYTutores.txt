@@ -4,9 +4,11 @@ Notas para profes y tutores:
 -el archivo inscripciones.wtest corre los test de esta primera version
 
 -el archivo inscripcionesCONBonus.wlk contiene la version final con bonus, ademas los requisitos y estudiantes se separaron
-en los archivos estudianteClass(una version distinta a la version sin bonus) y requisitos.wlk
+en los archivos estudiante.wlk (una version distinta a la version sin bonus) y requisitos.wlk
 
 -en el archivos requisitos.wlk  añadi contrato en las funciones de la Clase Anho para explicar el razonamiento de la resolucion
+
+-en el archivo listaEspera.wlk se encuentra la segunda parte del bonus, que implementa la gestion de las lista de espera
 
 
 

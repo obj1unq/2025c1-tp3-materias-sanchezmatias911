@@ -1,24 +1,18 @@
 
-
-
-/*manejo lista Espera*/
-
 class Manejo{
     const materiaActual
 
-    method alumnoAAniadir()
+    method alumnoAInscribir()
 
-    method añadirAlumno(){
-        materiaActual.añadirACursada(self.alumnoAAniadir())
+    method actualizarListaDeEspera(){
+        materiaActual.añadirACursada(self.alumnoAInscribir())
 
-        self.quitarAlumnoEnListaDeEspera(self.alumnoAAniadir())
+        self.quitarAlumnoEnListaDeEspera(self.alumnoAInscribir())
     }
+
+    
 
     method quitarAlumnoEnListaDeEspera(estudiante){
-        self.actualizarListaEspera(self.alumnoAAniadir())
-    }
-
-    method actualizarListaEspera(estudiante){
         self.listaEspera().remove(estudiante)
     }
 
@@ -30,19 +24,31 @@ class Manejo{
 
 class Elitista inherits Manejo{
      
-    override method añadirAlumno(){}
+    override method alumnoAInscribir(){
+        self.elDeMejorPromedio(self.listaEspera())
+    }
+
+    method elDeMejorPromedio(listaEspera){
+        self.listaEspera().max({estudiante => estudiante.promedio()})
+    }
 }
 
 class GradoAvance inherits Manejo{
 
      
-    override method añadirAlumno(){}
+    override method alumnoAInscribir(){
+        self.listaEspera().max({estudiante => self.cantMateriasAprobadas(estudiante)})
+    }
+
+    method cantMateriasAprobadas(estudiante){
+        return estudiante.materiasAprobadas().size()
+    }
 
 }
 class OrdenLlegada inherits Manejo{
 
-     override method alumnoAAniadir() = materiaActual.listaDeEspera().first()
-   //  const alumnoAniadir = materiaActual.listaDeEspera().first()
+     override method alumnoAInscribir() = self.listaEspera().first()
+   
 
      
 

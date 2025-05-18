@@ -1,7 +1,8 @@
 import requisitos.*
-import estudianteClass.*
+import estudiante.*
 import listaEspera.*
-/*
+/*  
+    BONUS: 
 
     Requisitos de materia: 
     * la Materia tiene un estado con una clase Correlativa,Credito, Año o Nada que heredan de una superclase Requisito
@@ -10,6 +11,11 @@ import listaEspera.*
     *el Estudiante tiene un metodo creditosTotales() que son los creditos que viene acumulando de materiasAprobadas aprobadas
     *las materias tienen una constante año(de que año de la carrera s la materia) y saben decir el año
 
+    Manejos de lista de Espera:
+    * Las materias tienen un Estado que se encargara de gestionar las listas de espera
+    Cada Clase de distintos manejos de listas de espera  hereda de una superclase Manejo:
+       * tiene como constante la materia actual donde hara el manejo,
+       * entiende el mensaje actualizarListaDeEspera() que realiza toda la gestion
 
 */
 class Carrera{
@@ -26,11 +32,11 @@ class Materia{
 
     const alumnosInscriptos = []
 
-    const listaDeEspera = []
+    const listaDeEspera = [] //Alumnos que al inscribirse a una materia, no hayaron cupo y quedaron en espera
 
     const manejoListaEspera // ESTADO: Alguna Clase de manejo de lista de espera
 
-    const anho
+    const anho //año de la carrera donde esta la materia
 
     const cupoMaximo //INT
 
@@ -72,7 +78,7 @@ class Materia{
 
     method añadirAListaDeEspera(alumno){
         if(not self.estaEnListaDeEspera(alumno)){ //evita repetidos en lista de espera
-            //listaDeEspera.add(alumno)
+            
             listaDeEspera.add(alumno)
 
         }
@@ -105,19 +111,12 @@ class Materia{
 
     method darDeBaja(estudiante){
         self.quitarEstudianteInscripto(estudiante)
-       // self.inscribirAlumnoEnEspera()
-       manejoListaEspera.añadirAlumno()
+       
+       
        manejoListaEspera.actualizarListaEspera()
     }
 
-    /*method inscribirAlumnoEnEspera(){
-        const alumnoEnEspera = listaDeEspera.first()
-
-        alumnosInscriptos.add(alumnoEnEspera)
-
-        listaDeEspera.remove(alumnoEnEspera)
-
-    }*/
+    
     // ############## RESULTADOS INSCRIPCION ###########
     method alumnosInscriptos() = alumnosInscriptos
 
