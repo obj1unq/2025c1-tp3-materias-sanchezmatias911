@@ -4,12 +4,16 @@ import requisitos.*
 import listaEspera.*
 import estudiante.*
 
-/* (AUN NO IMPLEMENTADO LOS TEST CON BONUS!!!)
+/* 
     PARA TESTEAR VERSION CON BONUS:
         *comentar "import inscripciones_SIN_bonus" y descomentar en "import inscripciones_CON_bonus"
         *comentar variables sin bonus y descomentar variables con bonus
 
     Proximamente delegare la inscripcion de la materia, ya que la materia tiene demasiados variables y responsabilidades
+
+    PARA TESTEAR SIN BONUS :
+        * solo debe quedar import inscripciones_SIN_bonus
+        *comentar objetos para testear CON bonus y descomentar los objetos para testear SIN bonus
 */
 
 
@@ -17,6 +21,7 @@ import estudiante.*
                             OBJETOS PARA TESTEAR con BONUS
 ###################################################################################################*/
     //ESTADOS DE REQUISITOS DE MATERIAS 
+
     const reqObjetos1 = new Nada()
     const reqObjetos2 = new Correlativa(materiaActual=objetos2)
     const reqObjetos3 = new Correlativa(materiaActual=objetos3)
@@ -28,14 +33,13 @@ import estudiante.*
     const reqEP = new Nada()
     const reqQuimica =new Nada()
     const reqTrabajoFinal = new Credito(creditosRequeridos=1000)
-
     const reqAnatomiaGeneral = new Nada()
     const reqLatin = new Nada()
     const reqDerechoRomano = new Nada()
     const reqHDA = new Nada()
     const reqDerechoPenal1 = new Nada()
-
     const reqDerechoPenal2 = new Nada()
+
     //ESTADO DE MANEJOS DE LISTA DE ESPERA PARA MATERIAS
     const mleObjetos1 = new OrdenLlegada(materiaActual=objetos1)
     const mleObjetos2 = new OrdenLlegada(materiaActual= objetos2)
@@ -48,7 +52,6 @@ import estudiante.*
     const mleEP =new OrdenLlegada(materiaActual=ep)
     const mleQuimica =new OrdenLlegada(materiaActual=quimica)
     const mleTrabajoFinal =new OrdenLlegada(materiaActual=trabajoFinal)
-  
     const mleAnatomiaGeneral =new OrdenLlegada (materiaActual=anatomiaGeneral)
     const mleLatin =new OrdenLlegada(materiaActual=latin)
     const mleDerechoRomano =new OrdenLlegada (materiaActual=derechoRomano)
@@ -56,9 +59,7 @@ import estudiante.*
     const mleDerechoPenal1 =new OrdenLlegada(materiaActual=derechoPenal1)
     const mleDerechoPenal2 =new OrdenLlegada(materiaActual=derechoPenal2)
     
-
-
-
+    // MATERIAS DE TODAS LAS CARRERAS
 
     const objetos1        = new Materia(nombreMateria="Programacion con Objetos 1", cupoMaximo = 6,requisito= reqObjetos1,anho=1,manejoListaEspera=mleObjetos1,correlativas=#{},creditosQueOtorga=120)
     const objetos2        = new Materia(nombreMateria= "Programacion Con objetos 2",cupoMaximo = 3, requisito = reqObjetos2, anho= 2,manejoListaEspera=mleObjetos2, correlativas=#{objetos1,matematica1},creditosQueOtorga= 100 )
@@ -71,19 +72,19 @@ import estudiante.*
     const ep              = new Materia(nombreMateria="Elementos de Programacion",cupoMaximo=4,correlativas=#{},anho=1,requisito=reqEP,manejoListaEspera=mleEP,creditosQueOtorga=100)
     const quimica         = new Materia(nombreMateria="Quimica", cupoMaximo=4,correlativas=#{},anho=1,requisito=reqQuimica,manejoListaEspera=mleQuimica,creditosQueOtorga=100)
     const trabajoFinal    = new Materia(nombreMateria = "Trabajo Final",cupoMaximo=4,correlativas=#{},anho=3,requisito=reqTrabajoFinal,manejoListaEspera=mleTrabajoFinal,creditosQueOtorga=100)
-   
-   const anatomiaGeneral = new Materia(nombreMateria = "Anatomia Genral",cupoMaximo=5,correlativas=#{},anho=1,requisito=reqAnatomiaGeneral,manejoListaEspera=mleAnatomiaGeneral,creditosQueOtorga=100)
+    const anatomiaGeneral = new Materia(nombreMateria = "Anatomia Genral",cupoMaximo=5,correlativas=#{},anho=1,requisito=reqAnatomiaGeneral,manejoListaEspera=mleAnatomiaGeneral,creditosQueOtorga=100)
     const latin           = new Materia(nombreMateria = "Latin", cupoMaximo=6,correlativas=#{},anho=1,requisito=reqLatin,manejoListaEspera=mleLatin,creditosQueOtorga=100)
     const derechoRomano   = new Materia(nombreMateria="Derecho Romano", cupoMaximo=10,correlativas=#{},anho=2,requisito=reqDerechoRomano,manejoListaEspera=mleDerechoRomano,creditosQueOtorga=100)
     const hda             = new Materia(nombreMateria="Historia del Derecho Argentino",cupoMaximo=5,correlativas=#{},anho=2,creditosQueOtorga=100,requisito=reqHDA,manejoListaEspera=mleHDA)
     const derechoPenal1   = new Materia(nombreMateria="Derecho Penal 1",cupoMaximo=3,correlativas=#{},anho=3,creditosQueOtorga=100,requisito=reqDerechoPenal1,manejoListaEspera=mleDerechoPenal1)
     const derechoPenal2   = new Materia(nombreMateria="Derecho Penal 2",cupoMaximo=3,correlativas=#{},anho=3,creditosQueOtorga=100,requisito=reqDerechoPenal2,manejoListaEspera=mleDerechoPenal2)
 
+    //CARRERAS
     const programacion = new Carrera(materiasCarrera= #{ep,matematica1,objetos1,objetos2,objetos3,trabajoFinal,bbdd,progConcurrente})
     const medicina = new Carrera(materiasCarrera=#{quimica,biologia1,biologia2,anatomiaGeneral})
     const derecho = new Carrera(materiasCarrera=#{latin,derechoRomano,hda,derechoPenal1,derechoPenal2})
 
-
+    //ESTUDIANTES
 
     const roque= new Estudiante()
     const luisa = new Estudiante()
@@ -133,11 +134,8 @@ import estudiante.*
 
 describe "Inscripciones"{
 
-   
-
      method initialize(){ 
 
-       
         //Inscripcion alumnos
         roque.inscribirACarrera(programacion)
         roque.inscribirACarrera(medicina)
@@ -188,18 +186,11 @@ describe "Inscripciones"{
         matematica1.aprobarEstudiante(romina, 9)
         matematica1.aprobarEstudiante(alicia, 8)
         
-
      }
      test "Roque puede inscribirse en Objetos 2, pero no en Objetos 3 (porque le falta Objetos 2) ni en Objetos 1 (porque ya la tiene aprobada)."{
-        assert.that(roque.sePuedeInscribir(objetos2))
-       
+        assert.that(roque.sePuedeInscribir(objetos2))      
         assert.notThat(roque.sePuedeInscribir(objetos3))
         assert.notThat(roque.sePuedeInscribir(objetos1))
-
-
-
-
-
      }
 
     test "Roque puede inscribirse: en Programación, en Objetos 2 y Programación Concurrente; en Medicina, en Biología 2."{
@@ -208,8 +199,6 @@ describe "Inscripciones"{
        assert.that(roque.sePuedeInscribir(progConcurrente))
 
        assert.that(roque.sePuedeInscribir(biologia2))
-
-
     }
 
     test "Si se inscriben, en este orden, Luisa, Romina, Alicia y Roque en Objetos 2, entonces las tres primeras quedan confirmadas, y Roque queda en lista de espera."{
@@ -223,8 +212,7 @@ describe "Inscripciones"{
         assert.that(romina.estaInscripto(objetos2))
         assert.that(alicia.estaInscripto(objetos2))
        
-        assert.that(objetos2.estaEnListaDeEspera(roque))
-        
+        assert.that(objetos2.estaEnListaDeEspera(roque))       
     }
 
     test "Si después se da de baja Romina en Objetos 2, entonces Roque pasa a tener la inscripción confirmada en esa materia."{
