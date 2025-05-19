@@ -14,6 +14,7 @@ import TP3_CON_bonus.estudiante.*
     PARA TESTEAR SIN BONUS :
         * solo debe quedar import inscripciones_SIN_bonus
         *comentar objetos para testear CON bonus y descomentar los objetos para testear SIN bonus
+        *
 */
 
 
