@@ -1,8 +1,8 @@
-//import inscripciones_SIN_bonus.*
-import inscripciones_CON_bonus.*
-import requisitos.*
-import listaEspera.*
-import estudiante.*
+//import TP3_SIN_bonus.inscripciones_SIN_bonus.*
+import TP3_CON_bonus.inscripciones_CON_bonus.*
+import TP3_CON_bonus.requisitos.*
+import TP3_CON_bonus.listaEspera.*
+import TP3_CON_bonus.estudiante.*
 
 /* 
     PARA TESTEAR VERSION CON BONUS:
