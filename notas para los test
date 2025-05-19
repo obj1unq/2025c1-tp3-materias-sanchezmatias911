@@ -1,0 +1,7 @@
+constantes para instanciar materias=
+    *nombreMateria
+    *cupoMaximo,
+    *requisito
+    *anho
+    *manejoListaEspera
+    *correlativas

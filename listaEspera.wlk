@@ -4,7 +4,7 @@ class Manejo{
 
     method alumnoAInscribir()
 
-    method actualizarListaDeEspera(){
+    method actualizarListaEspera(){
         materiaActual.añadirACursada(self.alumnoAInscribir())
 
         self.quitarAlumnoEnListaDeEspera(self.alumnoAInscribir())

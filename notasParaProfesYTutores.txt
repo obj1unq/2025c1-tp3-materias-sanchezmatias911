@@ -11,7 +11,7 @@ en los archivos estudiante.wlk (una version distinta a la version sin bonus) y r
 -en el archivo listaEspera.wlk se encuentra la segunda parte del bonus, que implementa la gestion de las lista de espera
 
 -si bien la materia tiene la responsabilidad de inscribir alumno,
-creo que deberia delegarla a otro objetos. Esperare por las dudas
+creo que deberia delegarle algunas funcionas a otro objeto. Esperare por las dudas
 las correcciones
 
 

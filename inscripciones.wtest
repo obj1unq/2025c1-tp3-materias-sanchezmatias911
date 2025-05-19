@@ -1,39 +1,83 @@
-import inscripciones_SIN_bonus.*
-//import inscripciones_CON_bonus.*
+//import inscripciones_SIN_bonus.*
+import inscripciones_CON_bonus.*
+import requisitos.*
+import listaEspera.*
+import estudiante.*
 
 /* (AUN NO IMPLEMENTADO LOS TEST CON BONUS!!!)
     PARA TESTEAR VERSION CON BONUS:
         *comentar "import inscripciones_SIN_bonus" y descomentar en "import inscripciones_CON_bonus"
         *comentar variables sin bonus y descomentar variables con bonus
 
+    Proximamente delegare la inscripcion de la materia, ya que la materia tiene demasiados variables y responsabilidades
 */
 
 
 /*#################################################################################################
                             OBJETOS PARA TESTEAR con BONUS
 ###################################################################################################*/
+    //ESTADOS DE REQUISITOS DE MATERIAS 
+    const reqObjetos1 = new Nada()
+    const reqObjetos2 = new Correlativa(materiaActual=objetos2)
+    const reqObjetos3 = new Correlativa(materiaActual=objetos3)
+    const reqMatematica1 =new Nada()
+    const reqBBDD = new Nada()
+    const reqProgConcurrente = new Correlativa(materiaActual=progConcurrente)
+    const reqBiologia1= new Nada()
+    const reqBiologia2 = new Correlativa(materiaActual=biologia2)
+    const reqEP = new Nada()
+    const reqQuimica =new Nada()
+    const reqTrabajoFinal = new Credito(creditosRequeridos=1000)
+
+    const reqAnatomiaGeneral = new Nada()
+    const reqLatin = new Nada()
+    const reqDerechoRomano = new Nada()
+    const reqHDA = new Nada()
+    const reqDerechoPenal1 = new Nada()
+
+    const reqDerechoPenal2 = new Nada()
+    //ESTADO DE MANEJOS DE LISTA DE ESPERA PARA MATERIAS
+    const mleObjetos1 = new OrdenLlegada(materiaActual=objetos1)
+    const mleObjetos2 = new OrdenLlegada(materiaActual= objetos2)
+    const mleObjetos3 = new OrdenLlegada(materiaActual=objetos3)
+    const mleMatematica1 = new OrdenLlegada(materiaActual =matematica1)
+    const mleBBDD = new OrdenLlegada(materiaActual=bbdd)
+    const mleProgConcurrente= new Correlativa(materiaActual = progConcurrente)
+    const mleBiologia1 =new OrdenLlegada(materiaActual=biologia1)
+    const mleBiologia2 =new OrdenLlegada(materiaActual=biologia2)
+    const mleEP =new OrdenLlegada(materiaActual=ep)
+    const mleQuimica =new OrdenLlegada(materiaActual=quimica)
+    const mleTrabajoFinal =new OrdenLlegada(materiaActual=trabajoFinal)
+  
+    const mleAnatomiaGeneral =new OrdenLlegada (materiaActual=anatomiaGeneral)
+    const mleLatin =new OrdenLlegada(materiaActual=latin)
+    const mleDerechoRomano =new OrdenLlegada (materiaActual=derechoRomano)
+    const mleHDA =new OrdenLlegada(materiaActual=hda)
+    const mleDerechoPenal1 =new OrdenLlegada(materiaActual=derechoPenal1)
+    const mleDerechoPenal2 =new OrdenLlegada(materiaActual=derechoPenal2)
+    
 
 
 
-/*
 
-    const objetos1        = new Materia(nombreMateria="Programacion con Objetos 1", cupoMaximo = 6)
-    const objetos2        = new Materia (nombreMateria= "Programacion Con objetos 2",cupoMaximo = 3, requisitos = #{objetos1,matematica1} )
-    const objetos3        = new Materia( nombreMateria="Programacion con Objetos 3",cupoMaximo = 3, requisitos = #{objetos2,bbdd})
-    const matematica1     = new Materia(nombreMateria= "Matematica 1",cupoMaximo= 3)
-    const bbdd            = new Materia (nombreMateria="Bases de Datos",cupoMaximo= 10, requisitos=#{})
-    const progConcurrente = new Materia(nombreMateria="Programacion Concurrente",cupoMaximo=4, requisitos=#{objetos1,bbdd})
-    const biologia1       = new Materia(nombreMateria = "Biologia 1",cupoMaximo=3)
-    const biologia2       = new Materia(nombreMateria="Bologia 2",cupoMaximo=4,requisitos=#{biologia1})
-    const ep              = new Materia(nombreMateria="Elementos de Programacion",cupoMaximo=4)
-    const quimica         = new Materia(nombreMateria="Quimica", cupoMaximo=4)
-    const trabajoFinal    = new Materia(nombreMateria = "Trabajo Final",cupoMaximo=4)
-    const anatomiaGeneral = new Materia(nombreMateria = "Anatomia Genral",cupoMaximo=5)
-    const latin           = new Materia(nombreMateria = "Latin", cupoMaximo=6)
-    const derechoRomano   = new Materia(nombreMateria="Derecho Romano", cupoMaximo=10)
-    const hda             = new Materia(nombreMateria="Historia del Derecho Argentino",cupoMaximo=5)
-    const derechoPenal1   = new Materia(nombreMateria="Derecho Penal 1",cupoMaximo=3)
-    const derechoPenal2   = new Materia(nombreMateria="Derecho Penal 2",cupoMaximo=3)
+    const objetos1        = new Materia(nombreMateria="Programacion con Objetos 1", cupoMaximo = 6,requisito= reqObjetos1,anho=1,manejoListaEspera=mleObjetos1,correlativas=#{},creditosQueOtorga=120)
+    const objetos2        = new Materia(nombreMateria= "Programacion Con objetos 2",cupoMaximo = 3, requisito = reqObjetos2, anho= 2,manejoListaEspera=mleObjetos2, correlativas=#{objetos1,matematica1},creditosQueOtorga= 100 )
+    const objetos3        = new Materia( nombreMateria="Programacion con Objetos 3",cupoMaximo = 3, requisito =reqObjetos3,anho=3,manejoListaEspera=mleObjetos3, correlativas=#{objetos2,bbdd},creditosQueOtorga =120)
+    const matematica1     = new Materia(nombreMateria= "Matematica 1",cupoMaximo= 3,requisito=reqMatematica1,anho=1,manejoListaEspera=mleMatematica1,correlativas=#{},creditosQueOtorga=100)
+    const bbdd            = new Materia (nombreMateria="Bases de Datos",cupoMaximo= 10,requisito=reqBBDD,anho=1,manejoListaEspera=mleBBDD, correlativas=#{},creditosQueOtorga=100)
+    const progConcurrente = new Materia(nombreMateria="Programacion Concurrente",cupoMaximo=4,requisito=reqProgConcurrente,anho=2,manejoListaEspera=mleProgConcurrente, correlativas=#{objetos1,bbdd},creditosQueOtorga=100)
+    const biologia1       = new Materia(nombreMateria = "Biologia 1",cupoMaximo=3,correlativas=#{},requisito=reqBiologia1,manejoListaEspera=mleBiologia1,anho=1,creditosQueOtorga=100)
+    const biologia2       = new Materia(nombreMateria="Bologia 2",cupoMaximo=4,correlativas=#{biologia1},requisito=reqBiologia2,manejoListaEspera=mleBiologia2,anho=2,creditosQueOtorga=100)
+    const ep              = new Materia(nombreMateria="Elementos de Programacion",cupoMaximo=4,correlativas=#{},anho=1,requisito=reqEP,manejoListaEspera=mleEP,creditosQueOtorga=100)
+    const quimica         = new Materia(nombreMateria="Quimica", cupoMaximo=4,correlativas=#{},anho=1,requisito=reqQuimica,manejoListaEspera=mleQuimica,creditosQueOtorga=100)
+    const trabajoFinal    = new Materia(nombreMateria = "Trabajo Final",cupoMaximo=4,correlativas=#{},anho=3,requisito=reqTrabajoFinal,manejoListaEspera=mleTrabajoFinal,creditosQueOtorga=100)
+   
+   const anatomiaGeneral = new Materia(nombreMateria = "Anatomia Genral",cupoMaximo=5,correlativas=#{},anho=1,requisito=reqAnatomiaGeneral,manejoListaEspera=mleAnatomiaGeneral,creditosQueOtorga=100)
+    const latin           = new Materia(nombreMateria = "Latin", cupoMaximo=6,correlativas=#{},anho=1,requisito=reqLatin,manejoListaEspera=mleLatin,creditosQueOtorga=100)
+    const derechoRomano   = new Materia(nombreMateria="Derecho Romano", cupoMaximo=10,correlativas=#{},anho=2,requisito=reqDerechoRomano,manejoListaEspera=mleDerechoRomano,creditosQueOtorga=100)
+    const hda             = new Materia(nombreMateria="Historia del Derecho Argentino",cupoMaximo=5,correlativas=#{},anho=2,creditosQueOtorga=100,requisito=reqHDA,manejoListaEspera=mleHDA)
+    const derechoPenal1   = new Materia(nombreMateria="Derecho Penal 1",cupoMaximo=3,correlativas=#{},anho=3,creditosQueOtorga=100,requisito=reqDerechoPenal1,manejoListaEspera=mleDerechoPenal1)
+    const derechoPenal2   = new Materia(nombreMateria="Derecho Penal 2",cupoMaximo=3,correlativas=#{},anho=3,creditosQueOtorga=100,requisito=reqDerechoPenal2,manejoListaEspera=mleDerechoPenal2)
 
     const programacion = new Carrera(materiasCarrera= #{ep,matematica1,objetos1,objetos2,objetos3,trabajoFinal,bbdd,progConcurrente})
     const medicina = new Carrera(materiasCarrera=#{quimica,biologia1,biologia2,anatomiaGeneral})
@@ -47,11 +91,11 @@ import inscripciones_SIN_bonus.*
     const alicia = new Estudiante()
     const ana = new Estudiante()
     
-*/    
+
 /*#################################################################################################
                             OBJETOS PARA TESTEAR SIN BONUS
 ###################################################################################################*/
-
+/*
     const objetos1        = new Materia(nombreMateria="Programacion con Objetos 1", cupoMaximo = 6)
     const objetos2        = new Materia (nombreMateria= "Programacion Con objetos 2",cupoMaximo = 3, requisitos = #{objetos1,matematica1} )
     const objetos3        = new Materia( nombreMateria="Programacion con Objetos 3",cupoMaximo = 3, requisitos = #{objetos2,bbdd})
@@ -82,9 +126,9 @@ import inscripciones_SIN_bonus.*
     const alicia = new Estudiante()
     const ana    = new Estudiante()
 
-
+*/
 /*#################################################################################################
-                                                 TEST SIN BONUS
+            TEST : Los testeos funcionan con version normal y sin bonus
 ###################################################################################################*/
 
 describe "Inscripciones"{
@@ -146,11 +190,14 @@ describe "Inscripciones"{
         
 
      }
-
      test "Roque puede inscribirse en Objetos 2, pero no en Objetos 3 (porque le falta Objetos 2) ni en Objetos 1 (porque ya la tiene aprobada)."{
         assert.that(roque.sePuedeInscribir(objetos2))
+       
         assert.notThat(roque.sePuedeInscribir(objetos3))
         assert.notThat(roque.sePuedeInscribir(objetos1))
+
+
+
 
 
      }
@@ -190,9 +237,14 @@ describe "Inscripciones"{
 
         assert.that(roque.estaInscripto(objetos2))
     }
+
+    test "testeo de funciones que emplea sePuedeInscribir() de estudiante"{
+        assert.that(roque.materiaEnCarrera(objetos2))
+       assert.notThat(roque.tieneAprobada(objetos2))
+       assert.notThat(roque.estaInscripto(objetos2))
+       assert.that(roque.cumploRequisitosDeMateria(objetos2))
+    }
 }
      
 
-/*#################################################################################################
-                                                 TEST SIN BONUS
-###################################################################################################*/
+

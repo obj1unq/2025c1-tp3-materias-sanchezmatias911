@@ -49,7 +49,7 @@ class Materia{
    
     method creditosQueOtorga() = creditosQueOtorga
     
-
+    method correlativas() = correlativas
 
     method nombreMateria() = nombreMateria
 
@@ -61,6 +61,8 @@ class Materia{
     method aproboCorrelativas(estudiante){
         return correlativas.all({materia => estudiante.tieneAprobada(materia)})
     }
+
+    method listaDeEspera() = listaDeEspera
     
 
     

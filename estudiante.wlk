@@ -40,8 +40,8 @@ class Estudiante{
     //################ INSCRIPCION ###############
     method sePuedeInscribir(materia){
         return self.materiaEnCarrera(materia) and 
-             not self.tieneAprobada(materia) and
-             not self.estaInscripto(materia) and
+             (not self.tieneAprobada(materia)) and
+             (not self.estaInscripto(materia)) and
              self.cumploRequisitosDeMateria(materia)
 
     }
@@ -55,7 +55,7 @@ class Estudiante{
     }
 
     // REFACTORIZAR
-    method cumploRequisitosDeMateria(materia) =  materia.cumpleRequisios(self)
+    method cumploRequisitosDeMateria(materia) =  materia.cumpleRequisitos(self)
 
     
 
