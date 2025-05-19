@@ -1,5 +1,5 @@
 
-import inscripcionesCONBonus.*
+import inscripciones_CON_bonus.*
 class Estudiante{
 
     const registroMateriasAprobadas= #{} //registros 
