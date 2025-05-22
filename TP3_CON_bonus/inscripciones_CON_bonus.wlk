@@ -55,12 +55,10 @@ class Materia{
 
     //REQUISITOS
     method cumpleRequisitos(estudiante){
-        return requisito.cumpleRequisito(estudiante) and self.aproboCorrelativas(estudiante)
+        return requisito.cumpleRequisito(estudiante) and estudiante.aproboCorrelativas(self)
     }
 
-    method aproboCorrelativas(estudiante){
-        return correlativas.all({materia => estudiante.tieneAprobada(materia)})
-    }
+   
 
     method listaDeEspera() = listaDeEspera
     
@@ -98,12 +96,12 @@ class Materia{
     }
 
     method validarInscripcion(alumno){
-        if(not self.sePuedeInscribir(alumno)){
+        if(not alumno.sePuedeInscribir(self)){
             self.error("El alumno no se puede inscribir a esta materia")
         }
     }
 
-    method sePuedeInscribir(estudiante) = estudiante.sePuedeInscribir(self)
+    
 
 
     method hayCupo() = self.cantidadInscriptos() < self.cupoMaximo()

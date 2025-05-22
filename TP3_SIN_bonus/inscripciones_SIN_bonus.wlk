@@ -30,7 +30,7 @@ class Carrera{
 }
 class Materia{
 
-    const nombreMateria //STRING
+    const nombre //STRING
 
     const alumnosInscriptos = []
 
@@ -43,7 +43,7 @@ class Materia{
 
     method requisitos()= requisitos
 
-    method nombreMateria() = nombreMateria
+    method nombre() = nombre
     
     //####### INSCRIBIR ALUMNO
     method inscribirAlumno(alumno){
@@ -114,10 +114,15 @@ class Materia{
     //####################### REGISTRO DE MATERIAS APROBADAS  ###############
     
     method aprobarEstudiante(estudiante,nota){
-        self.validarRegistro(estudiante,self)
-        const registro = new Registro(est = estudiante, mat= self, notaFinal = nota)
+        self.validarSiEstaInscripto(estudiante,self)
+        estudiante.validarRegistro( self)
+        const registro = new Registro( mat= self, notaFinal = nota)
         self.actualizarAlumnoYMateria(estudiante,registro) // el estudiante ya no esta inscripto porque aprobo
 
+    }
+
+    method validarSiEstaInscripto(estudiante,materia){
+        if(not estudiante.estaInscripto(materia)){self.error("El estudiante no se encuentra inscripto en la materia")}
     }
 
     method actualizarAlumnoYMateria(estudiante,registro){
@@ -125,15 +130,11 @@ class Materia{
         self.quitarEstudianteInscripto(estudiante)
     }
 
-    method validarRegistro(estudiante,materia){
-        if(estudiante.tieneAprobada(self)){
-            self.error("El Estudiante ya tiene  la materia aprobada")
-        }
-    }
+   
 
     method actualizarAlumnoAprobado(estudiante,reg){
         
-        estudiante.materiasAprobadas().add(reg)
+        estudiante.registroMateriasAprobadas().add(reg)
        
     }
 
@@ -145,11 +146,11 @@ class Materia{
 }
 class Registro {
     
-    const est
+    
     const mat
     const notaFinal
 
-    method registro() = #{est,mat,notaFinal}
+    method registro() = #{mat,notaFinal}
 
     method materia() = mat 
 
@@ -161,7 +162,7 @@ class Estudiante{
 
     
 
-    const materiasAprobadas= #{} //registros 
+    const registroMateriasAprobadas= #{} //registros 
     const carrerasInscripto = #{}
 
     //######### Punto 2 #########
@@ -176,7 +177,7 @@ class Estudiante{
     method listaMateriasAprobadas() {
         // Convierto el set de materias aprobadas a una lista para no perder informacion 
         // de las notas, que podrian estar repetidas
-        return materiasAprobadas.asList() 
+        return registroMateriasAprobadas.asList() 
     }
 
     method promedioNotas(listaNotas){
@@ -184,9 +185,9 @@ class Estudiante{
     }
    
    
-    method tieneAprobada(materia) =  self.materias().contains(materia)
+    method tieneAprobada(materia) =  self.materiasAprobadas().contains(materia)
     
-    method materias() =  materiasAprobadas.map({r => r.materia()})
+    method materiasAprobadas() =  registroMateriasAprobadas.map({r => r.materia()})
 
     // PUNTO 4
     method materiasDeTodasLasCarreras() =self.materiasDeCarreras().flatten()
@@ -194,7 +195,7 @@ class Estudiante{
     method materiasDeCarreras() =carrerasInscripto.map({c => c.materiasCarrera()})
     
     //########### REGISTRAR MATERIA APROBADA ############
-    method materiasAprobadas() = materiasAprobadas
+    method registroMateriasAprobadas() = registroMateriasAprobadas
 
     //################ INSCRIPCION ###############
     method sePuedeInscribir(materia){
@@ -217,6 +218,12 @@ class Estudiante{
         return materia.requisitos().all({m => self.tieneAprobada(m)})
     }
 
+    method validarRegistro(materia){
+        if(self.tieneAprobada(materia)){
+            self.error("El Estudiante ya tiene  la materia aprobada")
+        }
+    }
+
     //###### RESULTADOS INSCRIPCION ####
     
     method resultadosInscripcion(materia){
@@ -233,9 +240,9 @@ class Estudiante{
         
     }
 
-    method mensajeInscripto(materia) = "Usted esta inscripto a la materia" + materia.nombreMateria()
+    method mensajeInscripto(materia) = "Usted esta inscripto a la materia" + materia.nombre()
 
-    method mensajeListaEspera(materia) = "Usted esta en la lista de espera de la materia: "+ materia.nombreMateria()
+    method mensajeListaEspera(materia) = "Usted esta en la lista de espera de la materia: "+ materia.nombre()
 
     //######### MATERIAS EN LAS QUE ESTOY INSCRIPTO O EN LISTA DE ESPERA ##############
 

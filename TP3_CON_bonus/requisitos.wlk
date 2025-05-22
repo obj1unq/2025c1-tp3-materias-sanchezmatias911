@@ -6,7 +6,7 @@ class Correlativa inherits Requisitos{
     const materiaActual //un set de materias correlativas
 
     override method cumpleRequisito(estudiante){
-        return  materiaActual.correlativas().all({materia => estudiante.tieneAprobada(materia)})
+        return  estudiante.aproboCorrelativas(materiaActual)
     }
     /*method aproboCorrelativa(materia){
         return materiaActual.correlativas().contains(materia)
@@ -37,7 +37,7 @@ class Anho inherits Requisitos{
         const materiasCarrera =  self.materiasDeLaCarreraActual(estudiante,materiaActual)
         const materiasDeAñosAnteriores = self.materiasDeAñosAnteriores(materiasCarrera, anhoMateriaActual)
 
-        return self.aproboTodasDeAñosAnterioresA(estudiante,materiasDeAñosAnteriores)
+        return estudiante.aproboTodasDeAñosAnterioresA(materiasDeAñosAnteriores)
        
     }
 
@@ -88,10 +88,7 @@ class Anho inherits Requisitos{
     }
 
     // Resolucion del requisito
-    method aproboTodasDeAñosAnterioresA(estudiante,setMaterias){
-        return setMaterias.all({m => estudiante.tieneAprobada(m)})
-        
-    }
+    
 
 }
 class Nada inherits Requisitos{

@@ -41,7 +41,7 @@ class Estudiante{
         return self.materiaEnCarrera(materia) and 
              (not self.tieneAprobada(materia)) and
              (not self.estaInscripto(materia)) and
-             self.cumploRequisitosDeMateria(materia)
+             materia.cumpleRequisitos(self)
 
     }
 
@@ -53,8 +53,7 @@ class Estudiante{
         return materia.alumnosInscriptos().contains(self)
     }
 
-    // REFACTORIZAR
-    method cumploRequisitosDeMateria(materia) =  materia.cumpleRequisitos(self)
+   
 
     
 
@@ -74,9 +73,9 @@ class Estudiante{
         
     }
 
-    method mensajeInscripto(materia) = "Usted esta inscripto a la materia" + materia.nombreMateria()
+    method mensajeInscripto(materia) = "Usted esta inscripto a la materia" + materia.nombre()
 
-    method mensajeListaEspera(materia) = "Usted esta en la lista de espera de la materia: "+ materia.nombreMateria()
+    method mensajeListaEspera(materia) = "Usted esta en la lista de espera de la materia: "+ materia.nombre()
 
     //######### MATERIAS EN LAS QUE ESTOY INSCRIPTO O EN LISTA DE ESPERA ##############
 
@@ -118,7 +117,14 @@ class Estudiante{
 
     }
 
+    method aproboCorrelativas(materia){
+        return materia.correlativas().all({materia => self.tieneAprobada(materia)})
+    }
     
+    method aproboTodasDeAñosAnterioresA(setMaterias){
+        return setMaterias.all({m => self.tieneAprobada(m)})
+        
+    }
 }
 
 
