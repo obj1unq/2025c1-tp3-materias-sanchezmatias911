@@ -28,7 +28,7 @@ class Materia{
     
     const requisito // ESTADO: Alguna Clase de Requisito
 
-    const nombreMateria //STRING
+    const nombre //STRING
 
     const alumnosInscriptos = []
 
@@ -51,7 +51,7 @@ class Materia{
     
     method correlativas() = correlativas
 
-    method nombreMateria() = nombreMateria
+    method nombre() = nombre
 
     //REQUISITOS
     method cumpleRequisitos(estudiante){
