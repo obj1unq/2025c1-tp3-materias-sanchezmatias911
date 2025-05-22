@@ -133,7 +133,7 @@ class Materia{
     
     method aprobarEstudiante(estudiante,nota){
         self.validarRegistro(estudiante,self)
-        const registro = new Registro(est = estudiante, mat= self, notaFinal = nota)
+        const registro = new Registro( mat= self, notaFinal = nota)
         self.actualizarAlumnoYMateria(estudiante,registro) // el estudiante ya no esta inscripto porque aprobo
 
     }
@@ -162,11 +162,11 @@ class Materia{
 }
 class Registro {
     
-    const est
+    //const est
     const mat
     const notaFinal
 
-    method registro() = #{est,mat,notaFinal}
+    method registro() = #{mat,notaFinal}
 
     method materia() = mat 
 
