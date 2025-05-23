@@ -24,7 +24,7 @@
 
 class Carrera{
 
-  const materiasCarrera 
+  const materiasCarrera =#{}
 
     method materiasCarrera() = materiasCarrera
 }
