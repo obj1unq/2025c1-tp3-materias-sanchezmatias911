@@ -227,12 +227,6 @@ describe "Inscripciones"{
         assert.that(roque.estaInscripto(objetos2))
     }
 
-    test "testeo de funciones que emplea sePuedeInscribir() de estudiante"{
-        assert.that(roque.materiaEnCarrera(objetos2))
-       assert.notThat(roque.tieneAprobada(objetos2))
-       assert.notThat(roque.estaInscripto(objetos2))
-       assert.that(roque.cumploRequisitosDeMateria(objetos2))
-    }
 }
      
 

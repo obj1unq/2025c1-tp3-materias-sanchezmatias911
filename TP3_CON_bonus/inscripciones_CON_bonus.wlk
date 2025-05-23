@@ -20,7 +20,7 @@ import listaEspera.*
 */
 class Carrera{
 
-  const materiasCarrera 
+  const materiasCarrera = #{}
 
     method materiasCarrera() = materiasCarrera
 }
@@ -43,7 +43,7 @@ class Materia{
     //Creditos
     const creditosQueOtorga //int
 
-    const correlativas
+    const correlativas = #{}
 
     method anho() = anho
    
